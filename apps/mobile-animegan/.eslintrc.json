@@ -11,8 +11,12 @@
       "rules": {}
     },
     {
-      "files": ["*.js", "*.jsx"],
-      "rules": {}
+      "files": ["*.js", "*.jsx", "*.mjs"],
+      "rules": {
+        "parserOptions": {
+          "sourceType": "module"
+        }
+      }
     }
   ]
 }

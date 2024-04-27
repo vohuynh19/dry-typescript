@@ -49,14 +49,6 @@
         "syncDepsTargetName": "sync-deps",
         "upgradeTargetname": "upgrade"
       }
-    },
-    {
-      "plugin": "@nx/webpack/plugin",
-      "options": {
-        "buildTargetName": "build",
-        "serveTargetName": "serve",
-        "previewTargetName": "preview"
-      }
     }
   ],
   "generators": {
