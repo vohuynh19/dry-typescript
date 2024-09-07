@@ -1,0 +1,9 @@
+{
+  "name": "dry-i18n-hub",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/dry-i18n-hub",
+  "projectType": "application",
+  "tags": [],
+  "// targets": "to see all targets run: nx show project dry-i18n-hub --web",
+  "targets": {}
+}

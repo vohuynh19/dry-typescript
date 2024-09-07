@@ -1,0 +1,8 @@
+{
+  "name": "dry-crm-e2e",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/dry-crm-e2e/src",
+  "implicitDependencies": ["dry-crm"],
+  "// targets": "to see all targets run: nx show project dry-crm-e2e --web",
+  "targets": {}
+}

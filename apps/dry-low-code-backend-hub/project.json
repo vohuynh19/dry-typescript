@@ -1,0 +1,9 @@
+{
+  "name": "dry-low-code-backend-hub",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/dry-low-code-backend-hub",
+  "projectType": "application",
+  "tags": [],
+  "// targets": "to see all targets run: nx show project dry-low-code-backend-hub --web",
+  "targets": {}
+}

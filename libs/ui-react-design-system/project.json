@@ -1,0 +1,19 @@
+{
+  "name": "ui-react-design-system",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/ui-react-design-system/src",
+  "projectType": "library",
+  "tags": [],
+  "targets": {
+    "build": {
+      "executor": "@nx/js:tsc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/libs/ui-react-design-system",
+        "main": "libs/ui-react-design-system/src/index.ts",
+        "tsConfig": "libs/ui-react-design-system/tsconfig.lib.json",
+        "assets": ["libs/ui-react-design-system/*.md"]
+      }
+    }
+  }
+}
