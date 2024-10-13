@@ -1,1 +1,1 @@
-export * from './lib/ui-react-design-system';
+export * from './web';
