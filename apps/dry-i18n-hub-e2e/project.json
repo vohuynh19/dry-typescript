@@ -1,8 +1,0 @@
-{
-  "name": "dry-i18n-hub-e2e",
-  "$schema": "../../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "apps/dry-i18n-hub-e2e/src",
-  "implicitDependencies": ["dry-i18n-hub"],
-  "// targets": "to see all targets run: nx show project dry-i18n-hub-e2e --web",
-  "targets": {}
-}

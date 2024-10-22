@@ -1,9 +1,0 @@
-{
-  "name": "dry-remote-config-hub",
-  "$schema": "../../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "apps/dry-remote-config-hub",
-  "projectType": "application",
-  "tags": [],
-  "// targets": "to see all targets run: nx show project dry-remote-config-hub --web",
-  "targets": {}
-}
