@@ -20,6 +20,8 @@ const nextConfig = {
   transpilePackages: [
     'antd',
     '@ant-design',
+    'antd-mobile',
+    'ahooks',
     'rc-util',
     'rc-pagination',
     'rc-picker',

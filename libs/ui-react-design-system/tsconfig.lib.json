@@ -6,10 +6,6 @@
     "types": ["node"],
     "jsx": "react-jsx"
   },
-  "include": [
-    "src/**/*.ts",
-    "src/web/components/typography/Text.tsx",
-    "src/web/components/steps/Steps.tsx"
-  ],
+  "include": ["src/**/*.ts"],
   "exclude": ["jest.config.ts", "src/**/*.spec.ts", "src/**/*.test.ts"]
 }

@@ -1,1 +1,11 @@
-{}
+{
+  "pageTitle": {
+    "chooseTime": "Choose Time",
+    "chooseAmount": "Choose Time",
+    "chooseType": ""
+  },
+  "label": {
+    "date": "Choose Date",
+    "time": "Choose Time"
+  }
+}

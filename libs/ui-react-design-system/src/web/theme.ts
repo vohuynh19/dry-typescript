@@ -124,12 +124,19 @@ export const antdTheme: ThemeConfig = {
   token: {
     fontSize: 16,
     colorFillSecondary: colors.white[500],
-    colorFillContent: colors.white[500],
+    colorFillContent: colors.neutral[900],
     colorBorder: colors.neutral[700],
     colorPrimary: colors.primary[500],
     colorSplit: colors.neutral[900],
     colorBgContainer: colors.neutral[900],
     colorText: colors.white[500],
+    colorTextSecondary: colors.neutral[500],
+  },
+  components: {
+    Steps: {
+      iconSize: 40,
+      iconFontSize: 18,
+    },
   },
 };
 
@@ -143,6 +150,12 @@ export const appTheme: DefaultTheme = {
     background: colors.black[700],
     text: colors.white[500],
     secondaryButtonBg: colors.neutral[900],
+
+    //
+    dateBtnBg: colors.primary[900],
+    dateBtnBgActive: colors.primary[500],
+    dateBtnText: colors.black[100],
+    dateBtnTextActive: colors.white[500],
   },
   devices,
 };

@@ -11,6 +11,12 @@ declare module 'styled-components' {
       background: string;
       text: string;
       secondaryButtonBg: string;
+
+      //
+      dateBtnBg: string;
+      dateBtnBgActive: string;
+      dateBtnText: string;
+      dateBtnTextActive: string;
     };
     devices: {
       mobileS: string;

@@ -1,38 +1,27 @@
 import { ArrowLeftOutlined } from '@ant-design/icons';
-import { Button, Steps, Text } from '@dry-typescript/ui-react-design-system';
-import styled from 'styled-components';
+import {
+  Button,
+  SimpleSteps,
+  Text,
+} from '@dry-typescript/ui-react-design-system';
 
-const StepsWrapper = styled.div``;
+import { StepsDetailWrapper, StepsWrapper } from './steps-header.styled';
 
-const StepsDetailWrapper = styled.div`
-  margin-top: 24px;
-  display: flex;
-  align-items: center;
+type Props = {
+  step: number;
+  maxStep: number;
+  label: string;
+  onGoBack?: () => void;
+};
 
-  button {
-    margin-right: 24px;
-    width: 64px !important;
-    height: 64px;
-    border-radius: 50%;
-    color: ${({ theme }) => theme.colors.text};
-    border-color: ${({ theme }) => theme.colors.secondaryButtonBg};
-  }
-
-  .ant-typography {
-    font-size: 32px;
-    width: 120px;
-    line-height: 38px;
-  }
-`;
-
-const StepsHeader = () => {
+const StepsHeader = ({ label, maxStep, step, onGoBack }: Props) => {
   return (
     <StepsWrapper>
-      <Steps current={0} items={[{}, {}, {}]} />
+      <SimpleSteps maxStep={maxStep} currentStep={step} />
 
       <StepsDetailWrapper>
-        <Button icon={<ArrowLeftOutlined />} />
-        <Text>Choose time</Text>
+        <Button icon={<ArrowLeftOutlined />} onClick={onGoBack} />
+        <Text>{label}</Text>
       </StepsDetailWrapper>
     </StepsWrapper>
   );

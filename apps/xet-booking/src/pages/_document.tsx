@@ -26,7 +26,7 @@ MyDocument.getInitialProps = async (ctx: DocumentContext) => {
           sheet.collectStyles(
             <StyleProvider layer cache={cache}>
               <App {...props} />
-            </StyleProvider>
+            </StyleProvider>,
           ),
       });
 

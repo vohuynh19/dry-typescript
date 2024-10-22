@@ -1,6 +1,8 @@
 {
   "extends": [
     "plugin:@nx/react-typescript",
+    "plugin:react-hooks/recommended",
+    "plugin:prettier/recommended",
     "next",
     "next/core-web-vitals",
     "../../.eslintrc.json"
@@ -8,18 +10,34 @@
   "ignorePatterns": ["!**/*", ".next/**/*"],
   "overrides": [
     {
-      "files": ["*.ts", "*.tsx", "*.js", "*.jsx"],
-      "rules": {
-        "@next/next/no-html-link-for-pages": ["error", "apps/xet-booking/pages"]
-      }
-    },
-    {
       "files": ["*.ts", "*.tsx"],
-      "rules": {}
-    },
-    {
-      "files": ["*.js", "*.jsx"],
-      "rules": {}
+      "parser": "@typescript-eslint/parser",
+      "rules": {
+        "@next/next/no-html-link-for-pages": [
+          "error",
+          "apps/xet-booking/pages"
+        ],
+        "prettier/prettier": [
+          "error",
+          {
+            "trailingComma": "all",
+            "singleQuote": true,
+            "jsxSingleQuote": false,
+            "bracketSpacing": true
+          }
+        ],
+        "simple-import-sort/imports": [
+          "error",
+          {
+            "groups": [
+              ["^react", "^@?\\w"],
+              ["^@(/.*|$)"],
+              ["^\\u0000"],
+              ["^\\./(?=.*/)(?!/?$)", "^\\.(?!/?$)", "^\\./?$", "^.+\\.s?css$"]
+            ]
+          }
+        ]
+      }
     },
     {
       "files": ["*.spec.ts", "*.spec.tsx", "*.spec.js", "*.spec.jsx"],
