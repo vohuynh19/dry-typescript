@@ -4,8 +4,12 @@ import {
   SimpleSteps,
   Text,
 } from '@dry-typescript/ui-react-design-system';
+import { useRouter } from 'next/router';
+import styled from 'styled-components';
 
-import { StepsDetailWrapper, StepsWrapper } from './steps-header.styled';
+/**
+ * Component Region
+ */
 
 type Props = {
   step: number;
@@ -15,12 +19,18 @@ type Props = {
 };
 
 const StepsHeader = ({ label, maxStep, step, onGoBack }: Props) => {
+  const router = useRouter();
   return (
     <StepsWrapper>
       <SimpleSteps maxStep={maxStep} currentStep={step} />
-
       <StepsDetailWrapper>
-        <Button icon={<ArrowLeftOutlined />} onClick={onGoBack} />
+        <Button
+          icon={<ArrowLeftOutlined />}
+          onClick={() => {
+            router.back();
+            onGoBack?.();
+          }}
+        />
         <Text>{label}</Text>
       </StepsDetailWrapper>
     </StepsWrapper>
@@ -28,3 +38,38 @@ const StepsHeader = ({ label, maxStep, step, onGoBack }: Props) => {
 };
 
 export default StepsHeader;
+
+/**
+ * Helper Region
+ */
+
+/**
+ * Constant Region
+ */
+
+/**
+ * Styled region
+ */
+
+export const StepsWrapper = styled.div``;
+
+export const StepsDetailWrapper = styled.div`
+  margin-top: 24px;
+  display: flex;
+  align-items: center;
+
+  button {
+    margin-right: 24px;
+    width: 64px !important;
+    height: 64px;
+    border-radius: 50%;
+    color: ${({ theme }) => theme.colors.text};
+    border-color: ${({ theme }) => theme.colors.secondaryButtonBg};
+  }
+
+  .ant-typography {
+    font-size: 32px;
+    width: 120px;
+    line-height: 38px;
+  }
+`;

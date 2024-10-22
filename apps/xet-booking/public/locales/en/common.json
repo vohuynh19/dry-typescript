@@ -1,8 +1,8 @@
 {
+  "start": "Start",
   "pageTitle": {
     "chooseTime": "Choose Time",
-    "chooseAmount": "Choose Time",
-    "chooseType": ""
+    "fillDetail": "Fill Detail"
   },
   "label": {
     "date": "Choose Date",

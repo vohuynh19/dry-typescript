@@ -4,21 +4,21 @@ import { ReactQueryProvider } from '@dry-typescript/util-helpers';
 import type { AppProps } from 'next/app';
 import { appWithTranslation } from 'next-i18next';
 
-import PrimaryLayout from '../components/primary-layout';
+import AppContainer from '../components/app-container';
 import { useGlobalListenerInjection } from '../hooks/useGlobalListenerInjection';
 import '../styles/globals.css';
 
 const App = ({ Component, pageProps }: AppProps) => {
   useGlobalListenerInjection();
 
-  const Layout = useMemo(() => PrimaryLayout, []);
+  const Container = useMemo(() => AppContainer, []);
 
   return (
     <ReactQueryProvider dehydratedState={pageProps.dehydratedState}>
       <UiProvider>
-        <Layout>
+        <Container>
           <Component {...pageProps} />
-        </Layout>
+        </Container>
       </UiProvider>
     </ReactQueryProvider>
   );

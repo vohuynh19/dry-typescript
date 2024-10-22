@@ -1,6 +1,32 @@
 import { PropsWithChildren } from 'react';
 import styled from 'styled-components';
 
+/**
+ * Component Region
+ */
+
+const AppContainer = ({ children }: PropsWithChildren) => {
+  return (
+    <Container>
+      <Content>{children}</Content>
+    </Container>
+  );
+};
+
+export default AppContainer;
+
+/**
+ * Helper Region
+ */
+
+/**
+ * Constant Region
+ */
+
+/**
+ * Styled region
+ */
+
 const Container = styled.div`
   width: 100vw;
   height: 100vh;
@@ -19,13 +45,3 @@ const Content = styled.div`
   box-sizing: border-box;
   overflow: hidden;
 `;
-
-const PrimaryLayout = ({ children }: PropsWithChildren) => {
-  return (
-    <Container>
-      <Content>{children}</Content>
-    </Container>
-  );
-};
-
-export default PrimaryLayout;
