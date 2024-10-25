@@ -29,6 +29,7 @@ const nextConfig = {
     'rc-tooltip',
     './next-i18next.config',
   ],
+  distDir: '.next',
 };
 
 const plugins = [
