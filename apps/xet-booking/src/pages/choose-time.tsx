@@ -3,7 +3,6 @@ import { dehydrateQueryClient } from '@dry-typescript/util-helpers';
 import Link from 'next/link';
 import { useTranslation } from 'next-i18next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
-import styled from 'styled-components';
 
 import DatePicker from '../components/date-picker';
 import {

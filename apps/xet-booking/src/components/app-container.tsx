@@ -41,7 +41,6 @@ const Content = styled.div`
   height: 100%;
   max-width: 500px;
   background-color: ${({ theme }) => theme.colors.background};
-  padding: 12px 24px;
   box-sizing: border-box;
   overflow: hidden;
 `;

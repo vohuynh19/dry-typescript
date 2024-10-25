@@ -4,6 +4,6 @@ export const Routes = {
   splash: makeRoute(() => `/`),
   chooseTime: makeRoute(() => `/choose-time`),
   fillDetail: makeRoute(() => `/fill-detail`),
-  menu: makeRoute(() => `/menu`),
-  payment: makeRoute(() => `/payment`),
+  preparation: makeRoute(() => `/preparation`),
+  deposit: makeRoute(() => `/deposit`),
 };

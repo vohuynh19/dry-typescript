@@ -1,5 +1,6 @@
 import { CheckOutlined } from '@ant-design/icons';
 import { dehydrateQueryClient } from '@dry-typescript/util-helpers';
+import Link from 'next/link';
 import { useTranslation } from 'next-i18next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import styled from 'styled-components';
@@ -7,6 +8,7 @@ import styled from 'styled-components';
 import DatePicker from '../components/date-picker';
 import StepsDoneButton from '../components/steps-done-button';
 import StepsHeader from '../components/steps-header';
+import { Routes } from '../routes';
 
 export async function getStaticProps({ locale }: { locale: string }) {
   return {
@@ -17,7 +19,7 @@ export async function getStaticProps({ locale }: { locale: string }) {
   };
 }
 
-export default function Home() {
+export default function Deposit() {
   const { t } = useTranslation('common');
 
   return (
@@ -38,7 +40,9 @@ export default function Home() {
       />
 
       <ActionButtonContainer>
-        <StepsDoneButton type="primary" icon={<CheckOutlined />} />
+        <Link href={Routes.deposit()}>
+          <StepsDoneButton type="primary" icon={<CheckOutlined />} />
+        </Link>
       </ActionButtonContainer>
     </Container>
   );

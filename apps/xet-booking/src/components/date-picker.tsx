@@ -1,6 +1,9 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import { Text } from '@dry-typescript/ui-react-design-system';
-import { DatePickerView, PickerView } from 'antd-mobile';
+import {
+  DatePickerView,
+  PickerView,
+  Text,
+} from '@dry-typescript/ui-react-design-system';
 import moment from 'moment';
 import { useTranslation } from 'next-i18next';
 import styled from 'styled-components';

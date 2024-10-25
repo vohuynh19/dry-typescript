@@ -1,4 +1,4 @@
-import { Button } from 'antd';
+import { Button } from '@dry-typescript/ui-react-design-system';
 import styled from 'styled-components';
 
 const StepsDoneButton = styled(Button)`

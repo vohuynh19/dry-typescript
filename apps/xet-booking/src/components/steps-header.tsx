@@ -51,10 +51,12 @@ export default StepsHeader;
  * Styled region
  */
 
-export const StepsWrapper = styled.div``;
+export const StepsWrapper = styled.div`
+  padding: 16px;
+`;
 
 export const StepsDetailWrapper = styled.div`
-  margin-top: 24px;
+  margin-top: 16px;
   display: flex;
   align-items: center;
 

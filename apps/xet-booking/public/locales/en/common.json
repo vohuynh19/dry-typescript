@@ -1,11 +1,19 @@
 {
   "start": "Start",
+  "birthday": "Birthday",
+  "anniversary": "Anniversary",
+  "casualDining": "Casual Dining",
+  "socialGathering": "Social Gathering",
+  "party": "Party",
   "pageTitle": {
     "chooseTime": "Choose Time",
     "fillDetail": "Fill Detail"
   },
   "label": {
     "date": "Choose Date",
-    "time": "Choose Time"
+    "time": "Choose Time",
+    "numberOfGuest": "Number of guests",
+    "specialOccasions": "Special Occasions",
+    "preparation": "Preparation"
   }
 }
