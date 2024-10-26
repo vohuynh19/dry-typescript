@@ -33,12 +33,6 @@ export default function Deposit() {
         }}
       />
 
-      <DatePicker
-        onChange={(date) => {
-          console.log('date chnage', date);
-        }}
-      />
-
       <ActionButtonContainer>
         <Link href={Routes.deposit()}>
           <StepsDoneButton type="primary" icon={<CheckOutlined />} />
