@@ -42,7 +42,7 @@ export default AppContainer;
 
 const Container = styled.div`
   width: 100vw;
-  height: 100vh;
+  height: 100svh;
   background-color: ${({ theme }) => theme.colors.primaryBackground};
   display: flex;
   justify-content: center;

@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import { Controller, useForm, UseFormSetValue } from 'react-hook-form';
 import { CheckOutlined } from '@ant-design/icons';
+import { SizedBox } from '@dry-typescript/ui-react-design-system';
 import { dehydrateQueryClient } from '@dry-typescript/util-helpers';
 import moment from 'moment';
 import { useRouter } from 'next/router';
@@ -60,6 +61,8 @@ export default function ChooseTime() {
             <DatePicker date={value} onChange={onChange} />
           )}
         />
+
+        <SizedBox height={80} />
       </StepLayoutBody>
 
       <StepLayoutAction>

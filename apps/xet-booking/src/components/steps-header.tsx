@@ -53,12 +53,11 @@ export default StepsHeader;
  */
 
 export const StepsWrapper = styled.div`
-  width: 100%;
+  width: calc(100% - 48px);
   position: absolute;
-  padding: 16px;
   background-color: ${({ theme }) => theme.colors.secondaryButtonBg + 'dd'};
-  width: 100%;
   z-index: 1000000;
+  padding: 12px 24px;
 `;
 
 export const StepsDetailWrapper = styled.div`

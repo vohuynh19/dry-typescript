@@ -74,8 +74,8 @@ export default function Splash() {
             <Image
               className="logo"
               alt="logo"
-              width={100}
-              height={100}
+              width={300}
+              height={300}
               src={path.LOGO_URL}
               priority={true}
             />

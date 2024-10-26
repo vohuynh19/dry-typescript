@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { Controller, useForm, UseFormSetValue } from 'react-hook-form';
 import { CheckOutlined } from '@ant-design/icons';
-import { Padding } from '@dry-typescript/ui-react-design-system';
+import { Padding, SizedBox } from '@dry-typescript/ui-react-design-system';
 import { dehydrateQueryClient } from '@dry-typescript/util-helpers';
 import { useRouter } from 'next/router';
 import { useTranslation } from 'next-i18next';
@@ -75,6 +75,8 @@ export default function FillDetail() {
             )}
           />
         </Padding>
+
+        <SizedBox height={40} />
       </StepLayoutBody>
 
       <StepLayoutAction>
