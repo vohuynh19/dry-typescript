@@ -25,6 +25,7 @@ const StepsHeader = ({ label, maxStep, step, onGoBack }: Props) => {
       <SimpleSteps maxStep={maxStep} currentStep={step} />
       <StepsDetailWrapper>
         <Button
+          variant="outlined"
           icon={<ArrowLeftOutlined />}
           onClick={() => {
             router.back();
@@ -52,7 +53,12 @@ export default StepsHeader;
  */
 
 export const StepsWrapper = styled.div`
+  width: 100%;
+  position: absolute;
   padding: 16px;
+  background-color: ${({ theme }) => theme.colors.secondaryButtonBg + 'dd'};
+  width: 100%;
+  z-index: 1000000;
 `;
 
 export const StepsDetailWrapper = styled.div`
@@ -66,7 +72,8 @@ export const StepsDetailWrapper = styled.div`
     height: 64px;
     border-radius: 50%;
     color: ${({ theme }) => theme.colors.text};
-    border-color: ${({ theme }) => theme.colors.secondaryButtonBg};
+    /* 
+    border-color: ${({ theme }) => theme.colors.secondaryButtonBg}; */
   }
 
   .ant-typography {

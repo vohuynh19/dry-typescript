@@ -8,7 +8,7 @@ const Wrapper = styled.div`
 
 const Step = styled.div<{ $active: boolean }>`
   flex: 1;
-  height: 4px;
+  height: 3px;
   background-color: ${({ $active, theme }) =>
     $active ? theme.colors.primary : theme.colors.divider};
   margin: 0 4px;

@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { AiOutlineUserAdd } from 'react-icons/ai';
 import { MinusOutlined, PlusOutlined } from '@ant-design/icons';
 import { Button, Text } from '@dry-typescript/ui-react-design-system';
@@ -10,15 +9,26 @@ import InputLabel from './input-label';
  * Component Region
  */
 
-const GuestInput = () => {
-  const [amount, setAmount] = useState(0);
+type GuestInputProps = {
+  value: number;
+  onChange: (value: number) => void;
+};
 
+const GuestInput = ({ value, onChange }: GuestInputProps) => {
   const onIncrease = () => {
-    setAmount((prev) => prev + 1);
+    if (value + 1 > MAXIMUM_GUEST) {
+      return value;
+    }
+    onChange(value + 1);
+    return value + 1;
   };
 
   const onDecrease = () => {
-    setAmount((prev) => prev - 1);
+    if (value - 1 < MINIMUM_GUEST) {
+      return value;
+    }
+    onChange(value - 1);
+    return value - 1;
   };
 
   return (
@@ -26,13 +36,13 @@ const GuestInput = () => {
       <InputLabel icon={<AiOutlineUserAdd />} label="Number of guests" />
 
       <InputContainer>
-        <InputButton onClick={onIncrease} icon={<PlusOutlined />} />
+        <InputButton onClick={onDecrease} icon={<MinusOutlined />} />
 
         <InputAmount>
-          <Text>{amount}</Text>
+          <Text>{value}</Text>
         </InputAmount>
 
-        <InputButton onClick={onDecrease} icon={<MinusOutlined />} />
+        <InputButton onClick={onIncrease} icon={<PlusOutlined />} />
       </InputContainer>
     </Container>
   );
@@ -47,6 +57,9 @@ export default GuestInput;
 /**
  * Constant Region
  */
+
+const MAXIMUM_GUEST = 6;
+const MINIMUM_GUEST = 1;
 
 /**
  * Styled region
@@ -67,7 +80,7 @@ const InputButton = styled(Button)`
   width: 64px !important;
   height: 64px !important;
   border-radius: 50%;
-  border-color: transparent;
+  border-color: transparent !important;
 `;
 
 const InputAmount = styled.div`
@@ -78,7 +91,7 @@ const InputAmount = styled.div`
   width: 64px;
   height: 64px;
   border-radius: 50%;
-  background-color: ${({ theme }) => theme.colors.secondary};
+  background-color: ${({ theme }) => theme.colors.secondary + '44'};
 
   ${Text} {
     font-size: 24px;

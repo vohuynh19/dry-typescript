@@ -1,7 +1,9 @@
+import { useEffect } from 'react';
+import { Controller, useForm, UseFormSetValue } from 'react-hook-form';
 import { CheckOutlined } from '@ant-design/icons';
 import { Padding } from '@dry-typescript/ui-react-design-system';
 import { dehydrateQueryClient } from '@dry-typescript/util-helpers';
-import Link from 'next/link';
+import { useRouter } from 'next/router';
 import { useTranslation } from 'next-i18next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import styled from 'styled-components';
@@ -11,7 +13,14 @@ import OccasionPicker from '../components/occasion-picker';
 import { StepLayoutAction, StepLayoutBody } from '../components/step-layout';
 import StepsDoneButton from '../components/steps-done-button';
 import StepsHeader from '../components/steps-header';
+import { OccasionType } from '../constants/OccasionType';
+import { usePreservationStoreHydration, useValidationRules } from '../hooks';
 import { Routes } from '../routes';
+import { usePreservationStore } from '../stores';
+
+/**
+ * Next Server Side Region
+ */
 
 export async function getStaticProps({ locale }: { locale: string }) {
   return {
@@ -22,8 +31,17 @@ export async function getStaticProps({ locale }: { locale: string }) {
   };
 }
 
+/**
+ * Component Region
+ */
+
 export default function FillDetail() {
   const { t } = useTranslation('common');
+  const validationRules = useValidationRules();
+  const { control, handleSubmit, setValue } = useForm<FormData>();
+  const { guestAmount, occasionType, onNext } = usePageController({
+    setFormValue: setValue,
+  });
 
   return (
     <Container>
@@ -31,22 +49,92 @@ export default function FillDetail() {
 
       <StepLayoutBody>
         <Padding t={16}>
-          <GuestInput />
+          <Controller
+            defaultValue={guestAmount}
+            control={control}
+            name="guestAmount"
+            rules={{
+              required: validationRules.required(t('form.field.phone')),
+            }}
+            render={({ field: { value, onChange } }) => (
+              <GuestInput value={value} onChange={onChange} />
+            )}
+          />
         </Padding>
 
         <Padding t={32}>
-          <OccasionPicker />
+          <Controller
+            defaultValue={occasionType}
+            control={control}
+            name="occasionType"
+            rules={{
+              required: validationRules.required(t('form.field.phone')),
+            }}
+            render={({ field: { value, onChange } }) => (
+              <OccasionPicker occasionType={value} onChange={onChange} />
+            )}
+          />
         </Padding>
       </StepLayoutBody>
 
       <StepLayoutAction>
-        <Link href={Routes.preparation()}>
-          <StepsDoneButton type="primary" icon={<CheckOutlined />} />
-        </Link>
+        <StepsDoneButton
+          type="primary"
+          icon={<CheckOutlined />}
+          onClick={handleSubmit(onNext)}
+        />
       </StepLayoutAction>
     </Container>
   );
 }
+
+/**
+ * Helper Region
+ */
+
+const usePageController = ({
+  setFormValue,
+}: {
+  setFormValue: UseFormSetValue<FormData>;
+}) => {
+  const router = useRouter();
+  const {
+    guestAmount,
+    occasionType,
+    actions: { setGuestAmount, setOccasionType },
+  } = usePreservationStore();
+
+  const hydrated = usePreservationStoreHydration();
+
+  const onNext = (data: FormData) => {
+    setGuestAmount(data.guestAmount);
+    setOccasionType(data.occasionType);
+
+    router.push(Routes.preparation());
+  };
+
+  useEffect(() => {
+    if (hydrated) {
+      guestAmount && setFormValue('guestAmount', guestAmount);
+      occasionType && setFormValue('occasionType', occasionType);
+    }
+  }, [hydrated, setFormValue, guestAmount, occasionType]);
+
+  return { guestAmount, occasionType, onNext };
+};
+
+/**
+ * Constant Region
+ */
+
+type FormData = {
+  guestAmount: number;
+  occasionType: OccasionType;
+};
+
+/**
+ * Styled Region
+ */
 
 const Container = styled.div`
   display: flex;

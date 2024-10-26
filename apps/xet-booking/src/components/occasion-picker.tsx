@@ -5,14 +5,20 @@ import { LiaRingSolid } from 'react-icons/lia';
 import { LuPartyPopper } from 'react-icons/lu';
 import { TbHearts } from 'react-icons/tb';
 import { useTranslation } from 'next-i18next';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
+import { OccasionType } from '../constants/OccasionType';
 import InputLabel from './input-label';
 
 /**
  * Component Region
  */
-const OccasionPicker = () => {
+type OccasionPickerProps = {
+  occasionType?: OccasionType;
+  onChange: (type: OccasionType) => void;
+};
+
+const OccasionPicker = ({ occasionType, onChange }: OccasionPickerProps) => {
   const { t } = useTranslation('common');
   const occasions = useOccasions();
 
@@ -22,7 +28,6 @@ const OccasionPicker = () => {
         icon={<LuPartyPopper />}
         label={t('label.specialOccasions')}
       />
-
       <List>
         {occasions.map((occasion, index) => (
           <CardPosision
@@ -30,7 +35,12 @@ const OccasionPicker = () => {
             position={index % 2 === 0 ? 'left' : 'right'}
             rotate={index % 2 === 0 ? 'left' : 'right'}
           >
-            <OccasionCard occasion={occasion} index={index} />
+            <OccasionCard
+              index={index}
+              occasion={occasion}
+              active={occasion.type === occasionType}
+              onClick={() => onChange(occasion.type)}
+            />
           </CardPosision>
         ))}
       </List>
@@ -42,12 +52,23 @@ export default OccasionPicker;
 const OccasionCard = ({
   occasion,
   index,
+  active,
+  onClick,
 }: {
   occasion: OccasionListItem;
   index: number;
+  active: boolean;
+  onClick: () => void;
 }) => {
   return (
-    <OccasionCardContainer index={index}>
+    <OccasionCardContainer
+      $index={index}
+      $active={active}
+      onClick={() => {
+        console.log('onclick');
+        onClick();
+      }}
+    >
       <CardIcon>{occasion.icon}</CardIcon>
       <CardLabel>{occasion.label}</CardLabel>
     </OccasionCardContainer>
@@ -82,7 +103,6 @@ const useOccasions = () => {
         icon: <GoPeople />,
         label: t('socialGathering'),
       },
-
       {
         type: 'PARTY',
         icon: <LuPartyPopper />,
@@ -96,13 +116,6 @@ const useOccasions = () => {
 /**
  * Constant Region
  */
-
-type OccasionType =
-  | 'BIRTHDAY'
-  | 'ANNIVERSARY'
-  | 'CASUAL_DINING'
-  | 'SOCIAL_GATHERING'
-  | 'PARTY';
 
 type OccasionListItem = {
   type: OccasionType;
@@ -131,11 +144,10 @@ const CardPosision = styled.div<{
     rotate === 'left' ? 'rotateZ(15deg)' : 'rotateZ(-15deg)'};
 `;
 
-const OccasionCardContainer = styled.div<{ index: number }>`
+const OccasionCardContainer = styled.div<{ $index: number; $active: boolean }>`
   color: ${({ theme }) => theme.colors.text};
-  z-index: ${({ index }) => index + 1000};
+  z-index: ${({ $index }) => $index + 1000};
   background-color: ${({ theme }) => theme.colors.secondaryButtonBg};
-
   width: 44vw;
   height: 53vw;
   border: 1px solid ${({ theme }) => theme.colors.divider};
@@ -144,6 +156,18 @@ const OccasionCardContainer = styled.div<{ index: number }>`
   flex-direction: column;
   justify-content: space-between;
   padding: 16px;
+
+  ${({ $active }) =>
+    $active &&
+    css`
+      background-color: ${({ theme }) => theme.colors.secondary + 'aa'};
+      font-weight: 700;
+
+      ${CardIcon} {
+        background-color: ${({ theme }) => theme.colors.text};
+        color: ${({ theme }) => theme.colors.divider};
+      }
+    `}
 `;
 
 const CardIcon = styled.div`
@@ -153,7 +177,7 @@ const CardIcon = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: ${({ theme }) => theme.colors.secondary};
+  background-color: ${({ theme }) => theme.colors.secondary + '44'};
   font-size: 24px;
 `;
 

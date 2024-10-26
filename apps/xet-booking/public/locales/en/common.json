@@ -7,7 +7,7 @@
   "party": "Party",
   "pageTitle": {
     "chooseTime": "Choose Time",
-    "fillDetail": "Fill Detail"
+    "fillDetail": "Fill Details"
   },
   "metaTitle": {
     "default": "XET. Dine & Wine Reservation",
@@ -16,14 +16,13 @@
   "button": {
     "startReservation": "Start reservation"
   },
-
   "placeholder": {
     "name": "Name",
     "phone": "Phone number"
   },
   "label": {
-    "date": "Choose Date",
-    "time": "Choose Time",
+    "date": "Date",
+    "time": "Time",
     "numberOfGuest": "Number of guests",
     "specialOccasions": "Special Occasions",
     "preparation": "Preparation"
@@ -36,5 +35,12 @@
     "errors": {
       "required": "{{field}} is required"
     }
+  },
+  "date": {
+    "renderMinute": "{{value}}",
+    "renderHour": "{{value}} H",
+    "renderDay": "{{value}}",
+    "renderMonth": "{{value}}",
+    "renderYear": "{{value}}"
   }
 }

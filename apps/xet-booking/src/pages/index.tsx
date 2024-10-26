@@ -1,5 +1,5 @@
-import { useCallback, useMemo } from 'react';
-import { RegisterOptions, useForm } from 'react-hook-form';
+import { useEffect } from 'react';
+import { Controller, useForm, UseFormSetValue } from 'react-hook-form';
 import {
   Button,
   MobileDivider,
@@ -16,7 +16,14 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import styled from 'styled-components';
 
 import { StepLayoutContainer } from '../components/step-layout';
+import { useImagePath, usePreservationStoreHydration } from '../hooks';
+import { useValidationRules } from '../hooks/useValidationRules';
 import { Routes } from '../routes';
+import { usePreservationStore } from '../stores';
+
+/**
+ * Next Server Side Region
+ */
 
 export async function getStaticProps({ locale }: { locale: string }) {
   return {
@@ -33,9 +40,19 @@ export async function getStaticProps({ locale }: { locale: string }) {
 
 export default function Splash() {
   const { t } = useTranslation('common');
-  const { registerInput, onStartReservation, formErrors } = usePageController();
+  const path = useImagePath();
+  const validationRules = useValidationRules();
 
-  console.log('formErrors', formErrors);
+  const {
+    control,
+    handleSubmit,
+    setValue,
+    formState: { errors },
+  } = useForm<FormData>();
+
+  const { phoneNumber, name, onStartReservation } = usePageController({
+    setFormValue: setValue,
+  });
 
   return (
     <>
@@ -50,7 +67,7 @@ export default function Splash() {
             alt="background"
             width={200}
             height={200}
-            src={BACKGROUND_URL}
+            src={path.BACKGROUND_URL}
           />
 
           <Body>
@@ -59,28 +76,58 @@ export default function Splash() {
               alt="logo"
               width={100}
               height={100}
-              src={LOGO_URL}
+              src={path.LOGO_URL}
               priority={true}
             />
 
             <InputWrapper>
-              <MobileInput
-                {...registerInput.name()}
-                placeholder={t('placeholder.name')}
+              <Controller
+                defaultValue={name}
+                control={control}
+                name="name"
+                rules={{
+                  required: validationRules.required(t('form.field.name')),
+                }}
+                render={({ field: { onChange, onBlur, value, ref } }) => (
+                  <MobileInput
+                    ref={ref}
+                    onBlur={onBlur}
+                    onChange={onChange}
+                    value={value}
+                    placeholder={t('placeholder.name')}
+                  />
+                )}
               />
-              {formErrors.name?.message && (
-                <Text type="danger">{formErrors.name.message}</Text>
+              {errors.name?.message && (
+                <Text type="danger">{errors.name.message}</Text>
               )}
               <MobileDivider />
-              <MobileInput
-                {...registerInput.phone()}
-                placeholder={t('placeholder.phone')}
+              <Controller
+                defaultValue={phoneNumber}
+                control={control}
+                name="phone"
+                rules={{
+                  required: validationRules.required(t('form.field.phone')),
+                }}
+                render={({ field: { onChange, onBlur, value, ref } }) => (
+                  <MobileInput
+                    ref={ref}
+                    onBlur={onBlur}
+                    onChange={onChange}
+                    value={value}
+                    placeholder={t('placeholder.phone')}
+                  />
+                )}
               />
-              {formErrors.phone?.message && (
-                <Text type="danger">{formErrors.phone.message}</Text>
+              {errors.phone?.message && (
+                <Text type="danger">{errors.phone.message}</Text>
               )}
               <Spacer />
-              <Button size="large" onClick={onStartReservation}>
+              <Button
+                size="large"
+                onClick={handleSubmit(onStartReservation)}
+                disabled={Boolean(errors.name || errors.phone)}
+              >
                 {t('button.startReservation')}
               </Button>
             </InputWrapper>
@@ -100,80 +147,38 @@ type FormData = {
   phone: string;
 };
 
-const usePageController = () => {
+const usePageController = ({
+  setFormValue,
+}: {
+  setFormValue: UseFormSetValue<FormData>;
+}) => {
   const router = useRouter();
-  const { t } = useTranslation('common');
   const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<FormData>();
+    name,
+    phoneNumber,
+    actions: { setName, setPhoneNumber },
+  } = usePreservationStore();
+  const hydrated = usePreservationStoreHydration();
 
-  const onStartReservation = () => {
-    handleSubmit(() => {
-      router.push(Routes.chooseTime());
-    })();
+  const onStartReservation = (data: FormData) => {
+    setName(data.name);
+    setPhoneNumber(data.phone);
+    router.push(Routes.chooseTime());
   };
 
-  const registerField = useCallback(
-    (
-      fieldName: keyof FormData,
-      options?: RegisterOptions<FormData, keyof FormData>,
-    ) => {
-      const { required, onChange, ...fieldProps } = register(fieldName, {
-        ...options,
-      });
-      return {
-        ...fieldProps,
-        max: Number(fieldProps.max) || undefined,
-        min: Number(fieldProps.min) || undefined,
-        onChange: (val: string) => {
-          onChange({
-            type: 'change',
-            target: {
-              ...fieldProps.ref,
-              value: val,
-            },
-          });
-        },
-      };
-    },
-    [register],
-  );
+  useEffect(() => {
+    if (hydrated) {
+      setFormValue('name', name);
+      setFormValue('phone', phoneNumber);
+    }
+  }, [setFormValue, hydrated, name, phoneNumber]);
 
-  const registerInput = useMemo(
-    () => ({
-      name: () =>
-        registerField('name', {
-          required: {
-            value: true,
-            message: t('form.errors.required', {
-              field: t('form.field.name'),
-            }),
-          },
-        }),
-      phone: () =>
-        registerField('phone', {
-          required: {
-            value: true,
-            message: t('form.errors.required', {
-              field: t('form.field.phone'),
-            }),
-          },
-        }),
-    }),
-    [t, registerField],
-  );
-
-  return { formErrors: errors, registerInput, onStartReservation };
+  return { hydrated, name, phoneNumber, onStartReservation };
 };
 
 /**
  * Constant Region
  */
-
-const BACKGROUND_URL = '/images/background.png';
-const LOGO_URL = '/images/logo.png';
 
 /**
  * Styled Region

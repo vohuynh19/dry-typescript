@@ -1,5 +1,13 @@
 import { type ThemeConfig } from 'antd';
 import { type DefaultTheme } from 'styled-components';
+import { Onest } from 'next/font/google';
+
+export const onest = Onest({
+  weight: ['400', '500', '700'],
+  style: ['normal'],
+  subsets: ['latin'],
+  display: 'swap',
+});
 
 export const sizes = {
   mobileS: 320,
@@ -131,6 +139,7 @@ export const antdTheme: ThemeConfig = {
     colorBgContainer: colors.neutral[900],
     colorText: colors.white[500],
     colorTextSecondary: colors.neutral[500],
+    fontFamily: onest.style.fontFamily,
   },
   components: {
     Steps: {

@@ -13,7 +13,7 @@ export const StepLayoutBody = styled.div`
   flex: 1;
   overflow-y: auto;
   overflow-x: hidden;
-  padding: 0px 12px;
+  padding: 132px 16px 80px 16px;
 `;
 
 export const StepLayoutAction = styled.div`

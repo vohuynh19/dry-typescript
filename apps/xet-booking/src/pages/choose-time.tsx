@@ -1,10 +1,13 @@
+import { useEffect } from 'react';
+import { Controller, useForm, UseFormSetValue } from 'react-hook-form';
 import { CheckOutlined } from '@ant-design/icons';
 import { dehydrateQueryClient } from '@dry-typescript/util-helpers';
-import Link from 'next/link';
+import moment from 'moment';
+import { useRouter } from 'next/router';
 import { useTranslation } from 'next-i18next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 
-import DatePicker from '../components/date-picker';
+import DatePicker, { useDateColums } from '../components/date-picker';
 import {
   StepLayoutAction,
   StepLayoutBody,
@@ -12,7 +15,13 @@ import {
 } from '../components/step-layout';
 import StepsDoneButton from '../components/steps-done-button';
 import StepsHeader from '../components/steps-header';
+import { usePreservationStoreHydration, useValidationRules } from '../hooks';
 import { Routes } from '../routes';
+import { usePreservationStore } from '../stores';
+
+/**
+ * Next Server Side Region
+ */
 
 export async function getStaticProps({ locale }: { locale: string }) {
   return {
@@ -23,26 +32,95 @@ export async function getStaticProps({ locale }: { locale: string }) {
   };
 }
 
+/**
+ * Component Region
+ */
+
 export default function ChooseTime() {
   const { t } = useTranslation('common');
+  const validationRules = useValidationRules();
+  const { control, handleSubmit, setValue } = useForm<FormData>();
+  const { preservedTime, onNext } = usePageController({
+    setFormValue: setValue,
+  });
 
   return (
     <StepLayoutContainer>
-      <StepsHeader label={t('label.time')} step={1} maxStep={4} />
+      <StepsHeader label={t('pageTitle.chooseTime')} step={1} maxStep={4} />
 
       <StepLayoutBody>
-        <DatePicker
-          onChange={(date) => {
-            console.log('date chnage', date);
+        <Controller
+          defaultValue={preservedTime}
+          control={control}
+          name="preservedTime"
+          rules={{
+            required: validationRules.required(t('form.field.phone')),
           }}
+          render={({ field: { value, onChange } }) => (
+            <DatePicker date={value} onChange={onChange} />
+          )}
         />
       </StepLayoutBody>
 
       <StepLayoutAction>
-        <Link href={Routes.fillDetail()}>
-          <StepsDoneButton type="primary" icon={<CheckOutlined />} />
-        </Link>
+        <StepsDoneButton
+          type="primary"
+          icon={<CheckOutlined />}
+          onClick={handleSubmit(onNext)}
+        />
       </StepLayoutAction>
     </StepLayoutContainer>
   );
 }
+
+/**
+ * Helper Region
+ */
+
+const usePageController = ({
+  setFormValue,
+}: {
+  setFormValue: UseFormSetValue<FormData>;
+}) => {
+  const router = useRouter();
+  const {
+    preservedTime,
+    actions: { setPreservedTime },
+  } = usePreservationStore();
+
+  const hydrated = usePreservationStoreHydration();
+
+  const { getDefaultDate, getDefaultTime } = useDateColums();
+
+  const onNext = (data: FormData) => {
+    setPreservedTime(data.preservedTime);
+    router.push(Routes.fillDetail());
+  };
+
+  useEffect(() => {
+    if (hydrated && preservedTime) {
+      const defaultValue = preservedTime
+        ? preservedTime
+        : moment(getDefaultDate())
+            .add(getDefaultTime().hour, 'hour')
+            .add(getDefaultTime().minute, 'minute')
+            .toDate();
+
+      setFormValue('preservedTime', defaultValue);
+    }
+  }, [getDefaultDate, getDefaultTime, setFormValue, hydrated, preservedTime]);
+
+  return { hydrated, preservedTime, onNext };
+};
+
+/**
+ * Constant Region
+ */
+
+type FormData = {
+  preservedTime: Date;
+};
+
+/**
+ * Styled Region
+ */
