@@ -1,4 +1,6 @@
 import { PropsWithChildren } from 'react';
+import Head from 'next/head';
+import { useTranslation } from 'next-i18next';
 import styled from 'styled-components';
 
 /**
@@ -6,8 +8,19 @@ import styled from 'styled-components';
  */
 
 const AppContainer = ({ children }: PropsWithChildren) => {
+  const { t } = useTranslation();
   return (
     <Container>
+      <Head>
+        <title>{t('metaTitle.default')}</title>
+        <meta
+          property="og:title"
+          content={t('metaTitle.default')}
+          key="title"
+        />
+        <link rel="icon" type="image/x-icon" href="/images/logo.png" />
+      </Head>
+
       <Content>{children}</Content>
     </Container>
   );

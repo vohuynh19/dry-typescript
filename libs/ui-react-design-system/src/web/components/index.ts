@@ -10,3 +10,4 @@ export * from './typography';
 export * from './sized-box';
 export * from './padding';
 export * from './flip-page';
+export * from './spacer';
