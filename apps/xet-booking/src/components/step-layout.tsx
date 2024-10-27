@@ -4,16 +4,15 @@ export const StepLayoutContainer = styled.div`
   display: flex;
   flex-direction: column;
   height: 100%;
+  width: 100%;
   position: relative;
 `;
 
 export const StepLayoutBody = styled.div`
-  display: flex;
-  flex-direction: column;
-  flex: 1;
+  height: 100%;
   overflow-y: auto;
   overflow-x: hidden;
-  padding: 132px 16px 0px 16px;
+  padding: 132px 24px 44px 24px;
 `;
 
 export const StepLayoutAction = styled.div`

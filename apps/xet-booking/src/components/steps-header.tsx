@@ -53,7 +53,7 @@ export default StepsHeader;
  */
 
 export const StepsWrapper = styled.div`
-  width: calc(100% - 48px);
+  width: 100%;
   position: absolute;
   background-color: ${({ theme }) => theme.colors.secondaryButtonBg + 'dd'};
   z-index: 1000000;

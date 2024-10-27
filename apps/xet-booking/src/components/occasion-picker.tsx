@@ -142,6 +142,10 @@ const CardPosision = styled.div<{
   height: 36vw;
   transform: ${({ rotate }) =>
     rotate === 'left' ? 'rotateZ(15deg)' : 'rotateZ(-15deg)'};
+
+  @media (min-width: 550px) {
+    height: 198px;
+  }
 `;
 
 const OccasionCardContainer = styled.div<{ $index: number; $active: boolean }>`
@@ -168,6 +172,11 @@ const OccasionCardContainer = styled.div<{ $index: number; $active: boolean }>`
         color: ${({ theme }) => theme.colors.divider};
       }
     `}
+
+  @media (min-width: 550px) {
+    width: 242px;
+    height: 291px;
+  }
 `;
 
 const CardIcon = styled.div`

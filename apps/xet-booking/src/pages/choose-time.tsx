@@ -51,7 +51,7 @@ export default function ChooseTime() {
 
       <StepLayoutBody>
         <Controller
-          defaultValue={preservedTime}
+          defaultValue={preservedTime ? new Date(preservedTime) : undefined}
           control={control}
           name="preservedTime"
           rules={{
@@ -61,8 +61,6 @@ export default function ChooseTime() {
             <DatePicker date={value} onChange={onChange} />
           )}
         />
-
-        <SizedBox height={80} />
       </StepLayoutBody>
 
       <StepLayoutAction>
@@ -108,8 +106,7 @@ const usePageController = ({
             .add(getDefaultTime().hour, 'hour')
             .add(getDefaultTime().minute, 'minute')
             .toDate();
-
-      setFormValue('preservedTime', defaultValue);
+      setFormValue('preservedTime', new Date(defaultValue));
     }
   }, [getDefaultDate, getDefaultTime, setFormValue, hydrated, preservedTime]);
 

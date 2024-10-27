@@ -5,7 +5,6 @@ import { useTranslation } from 'next-i18next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import styled from 'styled-components';
 
-import DatePicker from '../components/date-picker';
 import StepsDoneButton from '../components/steps-done-button';
 import StepsHeader from '../components/steps-header';
 import { Routes } from '../routes';

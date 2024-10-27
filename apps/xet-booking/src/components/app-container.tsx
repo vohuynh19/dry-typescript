@@ -19,6 +19,7 @@ const AppContainer = ({ children }: PropsWithChildren) => {
           key="title"
         />
         <link rel="icon" type="image/x-icon" href="/images/logo.png" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Head>
 
       <Content>{children}</Content>
@@ -47,12 +48,19 @@ const Container = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  background-image: url(/images/brand-bg.png);
+  background-repeat: no-repeat;
+  background-position: center center;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
 `;
 
 const Content = styled.div`
   width: 100%;
   height: 100%;
-  max-width: 500px;
+  max-width: 550px;
   background-color: ${({ theme }) => theme.colors.background};
   box-sizing: border-box;
   overflow: hidden;

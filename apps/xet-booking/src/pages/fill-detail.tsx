@@ -10,7 +10,11 @@ import styled from 'styled-components';
 
 import GuestInput from '../components/guest-input';
 import OccasionPicker from '../components/occasion-picker';
-import { StepLayoutAction, StepLayoutBody } from '../components/step-layout';
+import {
+  StepLayoutAction,
+  StepLayoutBody,
+  StepLayoutContainer,
+} from '../components/step-layout';
 import StepsDoneButton from '../components/steps-done-button';
 import StepsHeader from '../components/steps-header';
 import { OccasionType } from '../constants/OccasionType';
@@ -44,39 +48,39 @@ export default function FillDetail() {
   });
 
   return (
-    <Container>
+    <StepLayoutContainer>
       <StepsHeader label={t('pageTitle.fillDetail')} step={2} maxStep={4} />
 
       <StepLayoutBody>
-        <Padding t={16}>
-          <Controller
-            defaultValue={guestAmount}
-            control={control}
-            name="guestAmount"
-            rules={{
-              required: validationRules.required(t('form.field.phone')),
-            }}
-            render={({ field: { value, onChange } }) => (
-              <GuestInput value={value} onChange={onChange} />
-            )}
-          />
-        </Padding>
+        <SizedBox $height={16} />
 
-        <Padding t={32}>
-          <Controller
-            defaultValue={occasionType}
-            control={control}
-            name="occasionType"
-            rules={{
-              required: validationRules.required(t('form.field.phone')),
-            }}
-            render={({ field: { value, onChange } }) => (
-              <OccasionPicker occasionType={value} onChange={onChange} />
-            )}
-          />
-        </Padding>
+        <Controller
+          defaultValue={guestAmount}
+          control={control}
+          name="guestAmount"
+          rules={{
+            required: validationRules.required(t('form.field.phone')),
+          }}
+          render={({ field: { value, onChange } }) => (
+            <GuestInput value={value} onChange={onChange} />
+          )}
+        />
 
-        <SizedBox height={40} />
+        <SizedBox $height={40} />
+
+        <Controller
+          defaultValue={occasionType}
+          control={control}
+          name="occasionType"
+          rules={{
+            required: validationRules.required(t('form.field.phone')),
+          }}
+          render={({ field: { value, onChange } }) => (
+            <OccasionPicker occasionType={value} onChange={onChange} />
+          )}
+        />
+
+        <SizedBox $height={40} />
       </StepLayoutBody>
 
       <StepLayoutAction>
@@ -86,7 +90,7 @@ export default function FillDetail() {
           onClick={handleSubmit(onNext)}
         />
       </StepLayoutAction>
-    </Container>
+    </StepLayoutContainer>
   );
 }
 
@@ -137,10 +141,3 @@ type FormData = {
 /**
  * Styled Region
  */
-
-const Container = styled.div`
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-  position: relative;
-`;
