@@ -25,6 +25,10 @@ body {
   width: 100%;
 }
 
+:root{
+  --adm-color-primary: #B61F1F;
+}
+
 @layer utilities {
 
 }

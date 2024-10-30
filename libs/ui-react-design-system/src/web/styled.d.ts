@@ -17,6 +17,8 @@ declare module 'styled-components' {
       dateBtnBgActive: string;
       dateBtnText: string;
       dateBtnTextActive: string;
+
+      //
     };
     devices: {
       mobileS: string;

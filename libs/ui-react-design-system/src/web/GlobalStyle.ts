@@ -2,7 +2,7 @@ import { createGlobalStyle } from 'styled-components';
 import { onest } from './theme';
 
 const GlobalStyle = createGlobalStyle`
-  :root{
+  :root {
     --adm-font-family: ${onest.style.fontFamily}
   }
 

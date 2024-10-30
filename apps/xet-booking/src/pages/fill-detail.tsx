@@ -116,7 +116,7 @@ const usePageController = ({
     setGuestAmount(data.guestAmount);
     setOccasionType(data.occasionType);
 
-    router.push(Routes.preparation());
+    router.push(Routes.decoration());
   };
 
   useEffect(() => {

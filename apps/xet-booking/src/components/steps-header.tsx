@@ -58,6 +58,11 @@ export const StepsWrapper = styled.div`
   background-color: ${({ theme }) => theme.colors.secondaryButtonBg + 'dd'};
   z-index: 1000000;
   padding: 12px 24px;
+
+  ${Text} {
+    word-spacing: 2000px;
+    flex: 1;
+  }
 `;
 
 export const StepsDetailWrapper = styled.div`
@@ -77,7 +82,6 @@ export const StepsDetailWrapper = styled.div`
 
   .ant-typography {
     font-size: 32px;
-    width: 120px;
     line-height: 38px;
   }
 `;
